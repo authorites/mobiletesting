@@ -20,19 +20,59 @@ void main() {
 
     group('onDigitPressed', () {
       test(
-          'given inputted pin is empty when digit is pressed then inputted pin should be added',
+        'given inputted pin is empty when inputted pin value more than one digit then inputted should not be added',
+        () {
+          // Arrange
+          final digit = 10;
+          // Act
+          loginViewModel.onDigitPressed(digit, MockBuildContext());
+          // Assert
+          expect(loginViewModel.inputtedPin, '');
+        },
+        tags: 'unit',
+      );
+
+      test(
+        'given inputted pin is empty when digit is pressed then inputted pin should be added',
+        () {
+          // Arrange
+          final digit = 1;
+          // Act
+          loginViewModel.onDigitPressed(digit, MockBuildContext());
+          // Assert
+          expect(loginViewModel.inputtedPin, '1');
+        },
+        tags: 'unit',
+      );
+
+      test(
+        'given inputted pin is 5 digits when digit is pressed then inputted pin should be added',
+        () {
+          // Arrange
+          final digit = 6;
+          loginViewModel.onDigitPressed(1, MockBuildContext());
+          loginViewModel.onDigitPressed(2, MockBuildContext());
+          loginViewModel.onDigitPressed(3, MockBuildContext());
+          loginViewModel.onDigitPressed(4, MockBuildContext());
+          loginViewModel.onDigitPressed(5, MockBuildContext());
+          // Act
+          loginViewModel.onDigitPressed(digit, MockBuildContext());
+          // Assert
+          expect(loginViewModel.inputtedPin, '123456');
+        },
+        tags: 'unit',
+      );
+
+      test(
+          'given inputted pin is 6 digits when digit is pressed then inputted pin should not be added',
           () {
         // Arrange
 
         // Act
 
         // Assert
+        expect(loginViewModel.inputtedPin, '123456');
       }, tags: 'unit');
-
-      test(
-          'given inputted pin is 6 digits when digit is pressed then inputted pin should not be added',
-          () {},
-          tags: 'unit');
       group('FE pin validation', () {});
       group('handle network call', () {});
     });

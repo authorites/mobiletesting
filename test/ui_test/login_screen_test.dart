@@ -20,9 +20,11 @@ void main() {
 
     //Act
     await tester.tap(find.text('1'));
+    await tester.tap(find.text('1'));
     await tester.pumpAndSettle();
 
     //Assertion
+    expect(find.text('11'), findsOneWidget);
     expect(find.byType(AlertDialog), findsNothing);
     // verify(serverA.functionB('')).called(1);
   }, tags: 'widget');
